@@ -1,11 +1,13 @@
 <body style="background-image: none; color: black; font-family: Verdana; font-weight:600"> 
   <!-- > -->
-  <img class="center-fit" src="images/PizzaPic.jpg" style="position:absolute; opacity: 0.4; object-fit: cover; height:100%; width:100%">
+  <img class="center-fit" src="../images/PizzaPic.jpg" style="position:absolute; opacity: 0.4; object-fit: cover; height:100%; width:100%">
   <div class="create-event" style= "position: absolute; top: 0%; ">
   <h1 style="font-size:400%; text-align: center; color:#8A2BE2; font-weight: bold; text-shadow: 2px 4px 3px rgba(0,0,0,0.3)">Create new event</h1>
-  <br>
+      <br>
+      {{message}}
+      <br>
 
-    	<form id="form1">
+    	<form action="/createEvent/" method="post" id="form1">
     	<p>
 	    	<label for="name">
 	    		<span style="font-size: 120%">Name of Event: </span>
@@ -38,16 +40,31 @@
 	    	</label><br>
 	    	<input type = "text" id="capacity" name="capacity" placeholder="50 people, etc...">
 	    </p>
-	    </form>
-	    <a href="main.html" type="button" id="createnewevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Create</a>
-		<a href="main.html" type="button" id="cancelevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Cancel</a>
+
+	    <input type="submit" id="createnewevent" role="button" value="Create" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+		<a href="/main" type="button" id="cancelevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Cancel</a>
+        </form>
     </div>
 
 
 
 
 </div>
-    
+
+  <script>
+      $('#form1').submit(function() {
+          if(
+              !$('#name').val() ||
+              !$('#time').val() ||
+              !$('#desc').val() ||
+              !$('#location').val() ||
+              !$('#capacity').val()
+          )
+          alert("IF YOU DON'T ENTER ALL THE FIELDS IM GOING TO GET REAL MAD");
+          return true;
+      })
+  </script>
+
     
 
 <style>    

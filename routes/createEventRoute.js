@@ -20,4 +20,29 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.post('/', function(req, res, next){
+    if (req.body.bookname &&
+        req.body.time &&
+        req.body.desc &&
+        req.body.location &&
+        req.body.capacity){
+        res.render('createEvent.hbs', {
+            title: "Create Event",
+            message: "SUCCESS"
+        });
+        console.log('got everything');
+        //TODO create an event
+    }
+    else{
+        res.render('createEvent.hbs', {
+            title: "Create Event",
+            message: "YOINKS THAT DON'T FLY AROUND HERE"
+        });
+        console.log("did not get everything");
+        /*
+        TODO render page again with hbs but include error message field and add that above the form
+         */
+    }
+});
+
 module.exports = router;

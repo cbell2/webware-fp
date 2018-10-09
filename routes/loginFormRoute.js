@@ -34,7 +34,7 @@ router.post('/', function (req, res, next) {
     //todo have the fornt end compare password to password conf
     if (req.body.email &&
         req.body.name &&
-        req.body.password ) {
+        req.body.password) {
 
         var userData = {
             email: req.body.email,
