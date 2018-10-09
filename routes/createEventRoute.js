@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var mongSetup = require('../mongooseSetup');
+var mongoose = require('mongoose');
 var events = require("mongoose").model('events');
 var user = require("mongoose").model('user');
+var mongSetup = require('../mongooseSetup');
 
 
 var mongoDB = mongSetup.db;
-mongSetup.Promise = global.Promise;
+mongoDB.Promise = global.Promise;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -15,9 +16,6 @@ router.get('/', function(req, res, next) {
                 title: "Welcome to Yeat",
 
             });
-
-
-
 });
 
 router.post('/', function(req, res, next){
@@ -31,7 +29,36 @@ router.post('/', function(req, res, next){
             message: "SUCCESS"
         });
         console.log('got everything');
+        console.log(req.session.userId);
         //TODO create an event
+        user.findOne({
+            _id: req.session.userId,
+        }).populate({
+            path: 'eventsOwned',
+            model: 'events'}).then((someUser) => {
+            console.log(JSON.stringify(someUser));
+            var newEvent = new events({
+                name: req.body.bookname,
+                date: req.body.time,
+                description: req.body.desc,
+                maxAttendance: req.body.capacity,
+            });
+            newEvent.save().then(()=>{
+                someUser.eventsOwned.push(newEvent);
+                someUser.save().then((doc)=>{
+                   console.log(doc);
+                });
+            });
+
+        })
+        //     var eventsOwned = someUser.eventsOwned;
+        //     console.log(JSON.stringify(someUser));
+        //     console.log("here are my evenets: " + eventsOwned);
+        //
+        //     }), (err) => {
+        //         console.log('Could not get user from the server');
+        //         throw err;
+        // };
     }
     else{
         res.render('createEvent.hbs', {

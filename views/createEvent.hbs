@@ -103,7 +103,16 @@
               e.preventDefault();
               setTimeout(function(){
                   $('#capacity').next('span').toggleClass('show'); }, 3000);
-          } else
+          }  if (!(Number.isInteger(($('#capacity').val())))){
+              e.preventDefault();
+              var capSpan = $('#capacity').next('span');
+              capSpan.text("Please enter an integer here!");
+              capSpan.toggleClass('show');
+
+              setTimeout(function(){
+                  capSpan.toggleClass('show'); }, 3000);
+          }
+          else
               return true;
       })
   </script>
