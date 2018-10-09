@@ -16,20 +16,19 @@ var events = mongoose.model("events", {
         type: String,
         required: true
     },
+    description: {
+        type: String
+    },
+    image: {
+        type: String
+    },
     maxAttendance: {
         type: Number,
         required: true
     },
     currentAttendance: {
         type: Number
-    },
-
-    foods: [{
-        type: String
-    }],
-    beverages: [{
-        type: String
-    }]
+    }
 });
 
 
@@ -58,18 +57,18 @@ module.exports.db = db;
 module.exports.events = events;
 module.exports.user = user;
 
-// var randomSeltzer = new seltzers({
-//     seltzer: "Polar Seltzer Variety Pack",
-//     seltzerID: 1,
-//     quantity: 20,
-//     size: "12 fl oz",
-//     brand: "Polar",
-//     price: 7.99
+// var event = new events({
+//     name: "testy2",
+//     date: "tomorrow",
+//     maxAttendance: 420,
+//     currentAttendance: 69,
+//     image: "https://res.cloudinary.com/teepublic/image/private/s--T2YwGf-3--/t_Resized%20Artwork/c_crop,x_10,y_10/c_fit,w_465/c_crop,g_north_west,h_620,w_465,x_0,y_0/g_north_west,u_upload:v1446840652:production:blanks:ymwlojdlb9pdlxgcmck4,x_-391,y_-276/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1512231713/production/designs/39441_1.jpg",
+//     description: "eat some food drink some brews"
 // });
 //
-// randomSeltzer.save().then((doc) => {
+// event.save().then((doc) => {
 //     console.log(doc);
 // }, (e) => {
 //     console.log("There was an error: ", e);
-//     throw e
+//     throw e;
 // });
