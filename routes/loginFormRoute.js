@@ -11,80 +11,15 @@ mongSetup.Promise = global.Promise;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    // var loggedin = false;
-    // var name = 'not logged';
-    // // console.log('session name is ' + req.session.name);
-    // // console.log('session email is ' + req.session.email);
-    // // console.log('session password is ' + req.session.password);
-    // if (req.session.name) {
-    //     loggedin = true;
-    //     name = req.session.name;
-    //     user.findOne({
-    //         email: req.session.email,
-    //         password: req.session.password
-    //     }).populate({
-    //         path: 'shoppingCart',
-    //         model: 'seltzers'
-    //     }).then((someUser) => {
-    //         console.log(someUser);
-    //         var isShoppingCart = true;
-    //         var userCart = someUser.shoppingCart;
-    //         console.log("This is the user in /")
-    //         console.log(JSON.stringify(someUser));
-    //         console.log(userCart);
-    //         if (userCart.length == 0)
-    //             isShoppingCart = false;
-    //
-    //         seltzers.find().then((allSeltzers) => {
-    //             console.log(JSON.stringify(allSeltzers));
-    //             res.render('index.hbs', {
-    //                 title: "Fizz: Seltzer Reimagined",
-    //                 seltzers: allSeltzers,
-    //                 isLoggedIn: loggedin,
-    //                 isTransactions: false,
-    //                 username: name,
-    //                 cart: userCart,
-    //                 isCart: isShoppingCart
-    //             });
-    //         }, (err) => {
-    //             console.log('Could not get meal data from the server');
-    //             throw err;
-    //         });
-    //     });
-    //
-    //
-    // } else {
-    //     seltzers.find().then((allSeltzers) => {
-    //         console.log(JSON.stringify(allSeltzers));
-
-
+    if(req.session.userId){
+        res.redirect('/main')
+    }else{
     res.render('loginForm.hbs', {
         title: "Welcome to Yeat",
     });
-
-
-
-
-    // }, (err) => {
-    //     console.log('Could not get meal data from the server');
-    //     throw err;
-    // });
-
-    //}
+    }
 });
 
-
-/*
-<div class="login-form">
-					<form action="/" method="post">
-						<input type="text" name="logemail" placeholder="E-mail" required="">
-						<input type="password" name="logpassword" placeholder="Password" required="">
-						<div class="tp">
-							<input type="submit" value="LOGIN NOW">
-						</div>
-					</form>
-				</div>
- */
 
 //POST route for updating data
 router.post('/', function (req, res, next) {
