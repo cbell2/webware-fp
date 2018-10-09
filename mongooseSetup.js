@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
+
 var Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
@@ -31,14 +33,15 @@ var events = mongoose.model("events", {
     attending: [{ type: Schema.Types.ObjectId, ref: user}]
 });
 
-
-var user = mongoose.model("user", {
+var userSchema = new mongoose.Schema({
     name: {
         type: String,
+        unique: true,
         required: true
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
@@ -52,6 +55,41 @@ var user = mongoose.model("user", {
     eventsApplied: [{ type: Schema.Types.ObjectId, ref: events}]
 
 });
+
+userSchema.statics.authenticate = function (email, password, callback) {
+    console.log("inside mongoose setup with " + email + " " + password);
+    user.findOne({ email: email })
+        .exec(function (err, user) {
+            if (err) {
+                return callback(err)
+            } else if (!user) {
+                var err = new Error('User not found.');
+                err.status = 401;
+                return callback(err);
+            }
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (result === true) {
+                    return callback(null, user);
+                } else {
+                    return callback();
+                }
+            })
+        });
+}
+
+//hashing a password before saving it to the database
+userSchema.pre('save', function (next) {
+    var user = this;
+    bcrypt.hash(user.password, 10, function (err, hash) {
+        if (err) {
+            return next(err);
+        }
+        user.password = hash;
+        next();
+    })
+});
+
+var user = mongoose.model("user", userSchema);
 
 module.exports.db = db;
 module.exports.events = events;

@@ -58,17 +58,17 @@ router.get('/', function(req, res, next) {
     //         console.log(JSON.stringify(allSeltzers));
 
 
-    res.render('login.hbs', {
+    res.render('loginForm.hbs', {
         title: "Welcome to Yeat",
     });
 
 
 
 
-        // }, (err) => {
-        //     console.log('Could not get meal data from the server');
-        //     throw err;
-        // });
+    // }, (err) => {
+    //     console.log('Could not get meal data from the server');
+    //     throw err;
+    // });
 
     //}
 });
@@ -85,6 +85,55 @@ router.get('/', function(req, res, next) {
 					</form>
 				</div>
  */
+
+//POST route for updating data
+router.post('/', function (req, res, next) {
+    // confirm that user typed same password twice
+    if (req.body.password !== req.body.passwordConf) {
+        var err = new Error('Passwords do not match.');
+        err.status = 400;
+        res.send("passwords dont match");
+        return next(err);
+    }
+    console.log(req.body.email + " " +req.body.name+ " " +req.body.password+ " ")
+    //todo have the fornt end compare password to password conf
+    if (req.body.email &&
+        req.body.name &&
+        req.body.password ) {
+
+        var userData = {
+            email: req.body.email,
+            name: req.body.name,
+            password: req.body.password
+        }
+
+        User.create(userData, function (error, user) {
+            if (error) {
+                return next(error);
+            } else {
+                req.session.userId = user._id;
+                return res.redirect('/main');
+            }
+        });
+
+    } else if (req.body.logemail && req.body.logpassword) {
+        console.log(req.body.logemail + " " + req.body.logpassword);
+        User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
+            if (error || !user) {
+                var err = new Error('Wrong email or password.');
+                err.status = 401;
+                return next(err);
+            } else {
+                req.session.userId = user._id;
+                return res.redirect('/main');
+            }
+        });
+    } else {
+        var err = new Error('All fields required.');
+        err.status = 400;
+        return next(err);
+    }
+});
 
 
 // // Interact with cart (add or delete)
