@@ -3,6 +3,7 @@ const hbs = require("express-handlebars");
 var path = require('path');
 var loginRoute = require('./routes/loginRoute');
 var mainRoute = require('./routes/mainRoute');
+var createEventRoute = require('./routes/createEventRoute');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var app = express();
@@ -40,6 +41,8 @@ app.use(session({
 
 app.use('/', loginRoute);
 app.use('/main', mainRoute);
+app.use('/createevent', createEventRoute);
+
 
 app.listen(process.env.PORT || 8000, ()=>{
     console.log('Server is listening on port 8000');
