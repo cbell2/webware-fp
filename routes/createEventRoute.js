@@ -41,6 +41,7 @@ router.post('/', function(req, res, next){
         console.log("did not get everything");
         /*
         TODO render page again with hbs but include error message field and add that above the form
+        IT is now TODONE
          */
     }
 });

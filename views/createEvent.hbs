@@ -12,33 +12,48 @@
 	    	<label for="name">
 	    		<span style="font-size: 120%">Name of Event: </span>
 	    	</label> <br>
+            <div class="popup wrap">
 	    	<input type = "text" id="name" name="bookname" placeholder="Pizza, Sushi, etc...">
-    	</p>
+            <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+        </div>
+            </p>
     	<p>
  			<label for="time">
     			<span style="font-size: 120%">Time:</span>
 	    	</label><br>
-	    	<input type = "text" id="time" name="time" placeholder="9PM">
+            <div class="popup wrap">
+	    	    <input type = "text" id="time" name="time" placeholder="9PM">
+                <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+        </div>
 	    </p>
 
       <p>
  			<label for="desc">
     			<span style="font-size: 120%">Description: </span >
 	    	</label><br>
+          <div class="popup wrap">
 	    	<input type = "text" id="desc" name="desc" placeholder="Homemade spaghetti...">
-	    </p>
+            <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+        </div>
+            </p>
 
 	    <p>
  			<label for="loc">
     			<span style="font-size: 120%">Location: </span>
 	    	</label><br>
+            <div class="popup wrap">
 	    	<input type = "text" id="location" name="location" placeholder="hidden until you accept the request">
+            <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+        </div>
 	    </p>
 	    <p>
  			<label for="capacity">
     			<span style="font-size: 120%">Capacity: </span >
 	    	</label><br>
+            <div class="popup wrap">
 	    	<input type = "text" id="capacity" name="capacity" placeholder="50 people, etc...">
+            <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+        </div>
 	    </p>
 
 	    <input type="submit" id="createnewevent" role="button" value="Create" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
@@ -52,16 +67,44 @@
 </div>
 
   <script>
-      $('#form1').submit(function() {
-          if(
-              !$('#name').val() ||
-              !$('#time').val() ||
-              !$('#desc').val() ||
-              !$('#location').val() ||
-              !$('#capacity').val()
-          )
-          alert("IF YOU DON'T ENTER ALL THE FIELDS IM GOING TO GET REAL MAD");
-          return true;
+      $('#form1').submit(function(e) {
+          // if(
+          //     !$('#name').val() ||
+          //     !$('#time').val() ||
+          //     !$('#desc').val() ||
+          //     !$('#location').val() ||
+          //     !$('#capacity').val()
+          // ){
+          //     e.preventDefault();
+          // alert("IF YOU DON'T ENTER ALL THE FIELDS IM GOING TO GET REAL MAD");
+          // }
+          if (!$('#name').val()){
+              $('#name').next('span').toggleClass('show');
+              e.preventDefault();
+              setTimeout(function(){
+                  $('#name').next('span').toggleClass('show'); }, 3000);
+          }  if (!$('#time').val()){
+              $('#time').next('span').toggleClass('show');
+              e.preventDefault();
+              setTimeout(function(){
+                  $('#time').next('span').toggleClass('show'); }, 3000);
+          }  if (!$('#desc').val()){
+              $('#desc').next('span').toggleClass('show');
+              e.preventDefault();
+              setTimeout(function(){
+                  $('#desc').next('span').toggleClass('show'); }, 3000);
+          }  if (!$('#location').val()){
+              $('#location').next('span').toggleClass('show');
+              e.preventDefault();
+              setTimeout(function(){
+                  $('#location').next('span').toggleClass('show'); }, 3000);
+          }  if (!$('#capacity').val()){
+              $('#capacity').next('span').toggleClass('show');
+              e.preventDefault();
+              setTimeout(function(){
+                  $('#capacity').next('span').toggleClass('show'); }, 3000);
+          } else
+              return true;
       })
   </script>
 
