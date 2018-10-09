@@ -10,6 +10,11 @@ mongSetup.Promise = global.Promise;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+    //THIS IS HOW WE FIND OUT IF SOMEONE IS LOGGED IN
+    //FIND USERS BY ID
+    //*****####console.log(req.session.userId);####****
+
     user.findOne({
         email: req.session.email,
         password: req.session.password
