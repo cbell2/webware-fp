@@ -9,7 +9,7 @@ var mongoDB = mongSetup.db;
 mongSetup.Promise = global.Promise;
 
 /* GET home page. */
-router.get('/createevent', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
             res.render('createEvent.hbs', {
                 title: "Welcome to Yeat",
