@@ -1,40 +1,46 @@
-<body style="background-image: none; background-size: cover; color: black; font-family: Verdana; font-weight:600"> 
+<body style="background-image: none; color: black; font-family: Verdana; font-weight:600"> 
   <!-- > -->
-  <img class="center-fit" src="images/PizzaPic.jpg" style="position:absolute; opacity: 0.4; object-fit: cover; height:100%; width:100%;margin:0;padding:0;outline:none">
-  <div class="create-event" style= "position: absolute; top: 0%; left: 0%;">
-  <h1 style="font-size:500%; text-align: center; color:#8A2BE2; font-weight: bold; text-shadow: 2px 4px 3px rgba(0,0,0,0.3)">Create new event</h1>
+  <img class="center-fit" src="images/PizzaPic.jpg" style="position:absolute; opacity: 0.4; object-fit: cover; height:100%; width:100%">
+  <div class="create-event" style= "position: absolute; top: 0%; ">
+  <h1 style="font-size:400%; text-align: center; color:#8A2BE2; font-weight: bold; text-shadow: 2px 4px 3px rgba(0,0,0,0.3)">Create new event</h1>
   <br>
 
     	<form id="form1">
     	<p>
 	    	<label for="name">
-	    		<span style="font-size: 150%">Name of Event: </span>
+	    		<span style="font-size: 120%">Name of Event: </span>
 	    	</label> <br>
 	    	<input type = "text" id="name" name="bookname" placeholder="Pizza, Sushi, etc...">
     	</p>
     	<p>
  			<label for="time">
-    			<span style="font-size: 150%">Time:</span>
+    			<span style="font-size: 120%">Time:</span>
 	    	</label><br>
-	    	<input type = "text" id="time" name="time">
+	    	<input type = "text" id="time" name="time" placeholder="9PM">
 	    </p>
 
       <p>
  			<label for="desc">
-    			<span style="font-size: 150%">Description: </span>
+    			<span style="font-size: 120%">Description: </span >
 	    	</label><br>
-	    	<input type = "text" id="desc" name="desc">
+	    	<input type = "text" id="desc" name="desc" placeholder="Homemade spaghetti...">
 	    </p>
 
 	    <p>
- 			<label for="publishedyear">
-    			<span style="font-size: 150%">Published date: </span>
-	    	</label>
-	    	<input type = "date" id="published" name="published">
+ 			<label for="loc">
+    			<span style="font-size: 120%">Location: </span>
+	    	</label><br>
+	    	<input type = "text" id="location" name="location" placeholder="hidden until you accept the request">
+	    </p>
+	    <p>
+ 			<label for="capacity">
+    			<span style="font-size: 120%">Capacity: </span >
+	    	</label><br>
+	    	<input type = "text" id="capacity" name="capacity" placeholder="50 people, etc...">
 	    </p>
 	    </form>
-	    <a href="main.html" type="button" class="btn btn-primary" role="button" style="font-size:40px; width: 40%; border-color:white; background-color: #02a6ff; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Log In</a>
-    <button type="button" class="btn btn-primary" style="font-size:40px; width: 40%; border-color:white; background-color: #02a6ff; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Create an Account</button>
+	    <a href="main.html" type="button" id="createnewevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Create</a>
+		<a href="main.html" type="button" id="cancelevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue	; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Cancel</a>
     </div>
 
 
@@ -44,7 +50,17 @@
     
     
 
-  
+<style>    
+input, select {
+	width: 70%;
+    padding:11px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;  
+}
+</style>
 
     
   </body>
