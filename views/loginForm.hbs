@@ -1,23 +1,43 @@
-<h3>Login</h3>
+<body style="background-image: none; background-size: cover; color: white; font-family: 'Times New Roman', Times, serif"> 
 
-<div class="login-form">
-    <form action="/loginform/" method="post">
-        <input type="text" name="logemail" placeholder="E-mail" required="">
+
+<img class="center-fit" src="images/pasta.jpg" style="position: absolute; top:0%;left:0%;opacity: 0.8; object-fit: cover; height: 100%; width:100%; overflow: hidden">
+<div class="login-form" style="position:absolute;top:7%">
+	<h3 style="display:block; margin-left:auto;margin-right:auto;width:40%;text-align:center; font-family: Times,serif; color:pink; font-size:5em; font-weight:600;text-shadow: 2px 4px 3px rgba(0,0,0,0.3)"> Log In </h3>
+	<form action="/loginform/" method="post" style="display:block; margin-left:auto;margin-right:auto;width:40%">
+        <input type="text" name="logemail" placeholder="E-mail" required="" > <br>
         <input type="password" name="logpassword" placeholder="Password" required="">
+        <br><br>
         <div class="tp">
-            <input type="submit" value="LOGIN NOW">
+            <input type="submit" style="display:block; margin-left:auto;margin-right:auto;width:40%;font-size:28px; font-weight:500; width: 60%; border-color:white; background-color: auto; text-shadow: 2px 4px 3px rgba(0,0,0,0.3); cursor:pointer" value="Log me in">
         </div>
     </form>
-</div>
 
-<h3>Register</h3>
 
-<div class="login-form">
-    <form action="/loginForm/" method="post">
+
+
+<h3 style="display:block; margin-left:auto;margin-right:auto;width:40%;text-align:center; font-family: Times,serif; color:pink; font-size:5em; font-weight:600;text-shadow: 2px 4px 3px rgba(0,0,0,0.3)">Register</h3>
+
+<div class="register-form">
+    <form action="/loginForm/" method="post" style="display:block; margin-left:auto;margin-right:auto;width:40%">
         <input type="text" name="email" placeholder="E-mail" required="">
         <input type="text" name="name" placeholder="Username" required="">
         <input type="password" name="password" placeholder="Password" required="">
         <input type="password" name="passwordConf" placeholder="Confirm Password" required="">
-        <input type="submit" value="REGISTER">
+        <br></br>
+        <input type="submit" style="display:block; margin-left:auto;margin-right:auto;width:40%;font-size:28px; font-weight:500; width: 60%; border-color:white; background-color: auto; text-shadow: 2px 4px 3px rgba(0,0,0,0.3); cursor:pointer" value="Register">
     </form>
 </div>
+</div>
+
+<style>    
+input, select {
+	width: 120%;
+    padding:8px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;  
+}
+</style>
