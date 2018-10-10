@@ -53,4 +53,29 @@ router.get('/', function(req, res, next) {
         });
     });
 });
+
+router.post('/requestEvent', function(req, res, next) {
+
+    user.findOne({
+        _id: req.session.userId
+    }).populate({
+        path: 'eventsApplied',
+        model: 'events'
+    }).then((someUser) => {
+            events.findOne({
+                _id: req.body.eventId
+            }).populate({
+                path: 'requested',
+                model: 'user'
+        }).then((someEvent)=>{
+            someEvent.requested.push(someUser);
+            someEvent.save();
+            someUser.eventsApplied.push(someEvent);
+            someUser.save();
+            console.log(someEvent);
+            });
+    });
+});
+
+
 module.exports = router;

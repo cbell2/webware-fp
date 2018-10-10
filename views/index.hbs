@@ -55,8 +55,8 @@
                     <p class="card-text">{{this.description}}</p>
                 </div>
             </div>
-            <div class="col-3" style="position: absolute; top: 70px; right: -85px">
-                <a href="#" class="btn btn-primary">Request to Attend</a>
+            <div id="{{this._id}}" class="findThis col-3" style="position: absolute; top: 70px; right: -85px">
+                <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
                 <a href="#" class="btn btn-primary">{{this.date}}</a>
                 <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
             </div>
@@ -69,5 +69,24 @@
 <script> 
 function goToCreate() {
 	window.location.href = 'createevent', true;
+}
+function requestToJoin(e) {
+    var joinThis = $(e).closest(".findThis").attr('id');
+    $.ajax({
+        url: '/main/requestEvent',
+        type: 'post',
+        data: {
+            eventId: joinThis
+        },
+        success: function (response) {
+            alert("Successfully requested to join. You probably hate seeing events so uhh Chris make this pretty plox?");
+            location.reload();
+        },
+        error: function () {
+            // TODO fail message
+            alert("fail to checkout");
+        }
+    });
+
 }
 </script>
