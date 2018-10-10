@@ -128,11 +128,26 @@
 
 <div class="col-3" style="float: right; text-align: center; position: fixed; right: 0px; height: 100%; background-color: #00e9ff;  display: block;">
     <img class="shadow-sm" src="images/Profile.png" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
-    <h3 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">John Doe</h3>
-    <h5 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">This is a short bio This is a short bio This is
-        a short bio v</h5>
-    <h7 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Favorite Food: YeetSauce</h7>
+    <h3 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">{{username}}</h3>
+<br><br>
+        <div id="bioDiv">
+    {{#if bio}}
+        <h5 id="bio" class="sideBarText">{{bio}}</h5>
+    {{else}}
+        <h5 id="bio" class="sideBarText">Have something you want to share in your bio? Click to edit</h5>
+    {{/if}}
+        </div>
+
+<div id="faveDiv">
+    {{#if fave}}
+        <h7 id="fave" class="sideBarText">Favorite Food: {{fave}}</h7>
+    {{else}}
+        <h7 id="fave" class="sideBarText">Click here to add your favorite food!</h7>
+    {{/if}}
+</div>
+
     <br><br>
+
     <a onclick="toggleDisplay('owned')" style=" height:13%; background-image:     linear-gradient(
       rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
@@ -154,6 +169,75 @@
 </div>
 </body>
 <script>
+
+    $(document).ready(function() {
+        var originalBio = $('#bio');
+        var originalFave = $('#fave');
+        var inputBio = $('<input />', {
+            'type': 'text',
+            'placeholder': originalBio.text(),
+            'id': 'inputBio'
+        });
+        var inputFave = $('<input />', {
+            'type': 'text',
+            'placeholder': originalFave.text(),
+            'id': 'inputFave'
+        });
+
+        $('#bioDiv').on('click', '#bio', function () {
+            $('#bio').replaceWith(inputBio);
+            //$('#inputBio').replaceWith(originalElement);
+            $('#bioDiv').find('#inputBio').on('focusout', function () {
+                //var isChanged = false;
+                if($('#inputBio').val()){
+                    originalBio.text($('#inputBio').val());
+                    //isChanged = true;
+                    $.ajax({
+                        url: '/main/changeBioFave',
+                        type: 'post',
+                        data: {
+                            bio: $('#inputBio').val()
+                        },
+                        success: function (response) {
+                            alert("Successfully added new Bio");
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    }).then($('#inputBio').replaceWith(originalBio));
+
+                }
+            })
+        });
+
+
+        $('#faveDiv').on('click', '#fave', function () {
+            $('#fave').replaceWith(inputFave);
+            //$('#inputBio').replaceWith(originalElement);
+            $('#faveDiv').find('#inputFave').on('focusout', function () {
+                //var isChanged = false;
+                if($('#inputFave').val()){
+                    originalFave.text($('#inputFave').val());
+                    //isChanged = true;
+                    $.ajax({
+                        url: '/main/changeBioFave',
+                        type: 'post',
+                        data: {
+                            fave: $('#inputFave').val()
+                        },
+                        success: function (response) {
+                            alert("Successfully added new Favorito");
+                        },
+                        error: function () {
+                            alert("Changing Event failed");
+                        }
+                    }).then($('#inputFave').replaceWith(originalFave));
+
+                }
+            })
+        });
+    });
+
 function toggleDisplay(id) {
     var div = document.getElementById(id);
     console

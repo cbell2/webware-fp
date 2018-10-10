@@ -48,6 +48,13 @@ var userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bio: {
+        type: String
+    },
+    fave: {
+        type: String
+    },
+
     eventsOwned: [{ type: Schema.Types.ObjectId, ref: events}],
 
     eventsAttending: [{ type: Schema.Types.ObjectId, ref: events}],
