@@ -74,6 +74,7 @@ router.post('/requestEvent', function(req, res, next) {
             someUser.save();
             console.log(someEvent);
             });
+            res.end();
     });
 });
 
