@@ -38,14 +38,22 @@
                     </div>
                 </div>
                 <div class="col-3" style="position: absolute; top: 70px; right: -85px">
-                    <a href="#" class="btn btn-damage">Close Event</a>
+                    <a href="#" class="btn btn-danger">Close Event</a>
                     <!-- <a href="#" class="btn btn-primary">{{this.date}}</a> -->
                     <h5 style="color: #717171; position: absolute; right: 30px; bottom: 10px">Currently: {{this.currentAttendance}} / {{this.maxAttendance}} Attendees</h5>
                     <i class="fas fa-check-square" style="color: red; font-size: 25px; position: absolute; top: 1px; right: 20px; width: 20px; height: 20px;"></i>
                 </div>
-                <!--  users that have requested-->
-
             </div>
+
+            <ul id="{{this._id}}" class="list-group eventId" style"margin-top: 10px">
+                {{#each this.requested}}
+                    <li class="list-group-item">
+                        {{this.name}} Would like to attend!
+                        <a id="{{this._id}}" href="#" onclick="acceptRequest(this)" class="btn btn-success">Accept</a>
+                        <a id="{{this._id}}" href="#" onclick="declineRequest(this)" class="btn btn-danger">Decline</a>
+                    </li>
+                {{/each}}
+            </ul>
         {{/each}}
     </div>
 
@@ -167,6 +175,7 @@ function toggleDisplay(id) {
 function goToCreate() {
 	window.location.href = 'createevent', true;
 }
+
 function requestToJoin(e) {
     var joinThis = $(e).closest(".findThis").attr('id');
     $.ajax({
@@ -184,6 +193,26 @@ function requestToJoin(e) {
             alert("Requesting to join event failed");
         }
     });
+}
 
+function acceptRequest(button) {
+    var userId = button.id;
+    var eventId = $(button).closest(".eventId").attr('id');
+
+    $.ajax({
+        url: '/main/acceptRequest',
+        type: 'post',
+        data: {
+            userId: userId,
+            eventId: eventId
+        },
+        success: function (response) {
+            alert("Successfully accpeted user.");
+            location.reload();
+        },
+        error: function () {
+            alert("Accepting user failed");
+        }
+    });
 }
 </script>

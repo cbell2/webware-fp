@@ -14,7 +14,11 @@ router.get('/', function(req, res, next) {
         _id: req.session.userId
     }).populate({
         path: 'eventsOwned',
-        model: 'events'
+        model: 'events',
+        populate: {
+            path: 'requested attending',
+            model: 'user'
+        }
     }).populate({
         path: 'eventsApplied',
         model: 'events'
@@ -22,10 +26,12 @@ router.get('/', function(req, res, next) {
         path: 'eventsAttending',
         model: 'events'
     }).then((someUser) => {
+        // console.log('Populated Event:');
+        // console.log(someUser.eventsOwned);
+        //console.log(someUser.eventsApplied);
+        //console.log(someUser.eventsAttending);
         events.find().then((allEvents) => {
-            console.log(someUser.eventsOwned);
-            console.log(someUser.eventsApplied);
-            console.log(someUser.eventsAttending);
+
             res.render('index.hbs', {
                 title: "Welcome to Yeat",
                 eventsOwned: someUser.eventsOwned,
@@ -59,9 +65,51 @@ router.post('/requestEvent', function(req, res, next) {
                 someEvent.save();
                 someUser.eventsApplied.push(someEvent);
                 someUser.save();
-                console.log(someEvent);
                 });
                 res.end();
+        });
+});
+
+router.post('/acceptRequest', function(req, res, next) {
+    user.findOne({
+            _id: req.body.userId
+        }).populate({
+            path: 'eventsApplied',
+            model: 'events'
+        }).populate({
+            path: 'eventsAttending',
+            model: 'events'
+        }).then((someUser) => {
+            events.findOne({
+                _id: req.body.eventId
+            }).populate({
+                path: 'requested',
+                model: 'user'
+            }).populate({
+                path: 'attending',
+                model: 'user'
+            }).then((someEvent)=>{
+                // Remove from requested, add to attending
+                someEvent.attending.push(someUser);
+                for (var i = 0; i < someEvent.requested.length; i++) {
+                    if (someEvent.requested[i]._id.toString() == someUser._id.toString()) {
+                        console.log('YEET');
+                        someEvent.requested.splice(i, 1);
+                    }
+                }
+                someEvent.save();
+
+                // Remove from applied, add to attending
+                someUser.eventsAttending.push(someEvent);
+                for (var i = 0; i < someUser.eventsApplied.length; i++) {
+                    if (someUser.eventsApplied[i]._id.toString() == someEvent._id.toString()) {
+                        console.log('YEET');
+                        someUser.eventsApplied.splice(i, 1);
+                    }
+                }
+                someUser.save();
+            });
+            res.end();
         });
 });
 
