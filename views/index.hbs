@@ -47,7 +47,30 @@
         {{/each}}
     </div>
 
-    <div id="applied">
+    <div id="attending" style="display: none">
+        {{#each eventsAttending}}
+            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: green;">
+                <div class="row">
+                    <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
+                        <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
+                    </div>
+                    <div class="col-6" >
+                        <div class="card-body" style="padding: 0px; float: left">
+                            <h5 class="card-title">{{this.name}}</h5>
+                            <p class="card-text">{{this.description}}</p>
+                        </div>
+                    </div>
+                    <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
+                        <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
+                        <a href="#" class="btn btn-primary">{{this.date}}</a>
+                        <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+    <div id="applied" style="display: none">
         {{#each eventsApplied}}
             <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: yellow;">
                 <div class="row">
@@ -70,81 +93,61 @@
         {{/each}}
     </div>
 
-    <div id="attending">
-        {{#each eventsAttending}}
-            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: green;">
-                <div class="row">
-                <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
-                    <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
-                </div>
-                <div class="col-6" >
-                    <div class="card-body" style="padding: 0px; float: left">
-                        <h5 class="card-title">{{this.name}}</h5>
-                        <p class="card-text">{{this.description}}</p>
-                    </div>
-                </div>
-                <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
-                    <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
-                    <a href="#" class="btn btn-primary">{{this.date}}</a>
-                    <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
-                </div>
-            </div>
-            </div>
-        {{/each}}
-    </div>
-
     <div id="all">
         {{#each allEvents}}
-            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px;">
-                <div class="row">
+        <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px;">
+            <div class="row">
                 <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
                     <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
                 </div>
-                <div class="col-6" >
+                <div id="{{this._id}}" class="findThis col-9" >
                     <div class="card-body" style="padding: 0px; float: left">
-                        <h5 class="card-title">{{this.name}}</h5>
+                        <h4 class="card-title">{{this.name}}</h4>
+                        <h5 class="card-title" style="margin-top: -18px; color: #717171">{{this.date}}</h5>
                         <p class="card-text">{{this.description}}</p>
+                        <br>
+                        <br>
+                        {{!-- <a href="#" class="btn btn-primary" style="position: absolute; bottom: 18px">{{this.currentAttendance}} / {{this.maxAttendance}}</a> --}}
+                        <div class="row">
+                        <a id="requestToAttend" onclick="requestToJoin(this)" style="border-color: #02a6ff; background-color: #02a6ff; color: white; position: absolute; left: 15px; bottom: 18px" class="btn btn-primary">Request to Attend</a>
+                        <h5 style="color: #717171; position: absolute; left: 176px; bottom: 10px">Currently: {{this.currentAttendance}} / {{this.maxAttendance}} Attendees</h5>
+                        </div>
                     </div>
                 </div>
-                <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
-                    <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
-                    <a href="#" class="btn btn-primary">{{this.date}}</a>
-                    <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
-                </div>
             </div>
-            </div>
-        {{/each}}
+        </div>
+    {{/each}}
     </div>
 </div>
 
-<div class="col-3" style="float: right; text-align: center; position: fixed; right: 0px; height: 100%; background-color: #00e9ff;  display: block;">
-    <img class="shadow-sm" src="images/Profile.png" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
-    <h3 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">John Doe</h3>
-    <h5 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">This is a short bio This is a short bio This is
-        a short bio v</h5>
-    <h7 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Favorite Food: YeetSauce</h7>
-    <br><br>
-    <a onclick="toggleDisplay('owned')" style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45),
-      rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
-        My Events
-    </a>
-    <a onclick="toggleDisplay('applied')" style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45),
-      rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
-        Accepted
-    </a>
-    <a onclick="toggleDisplay('attending')" style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45),
-      rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
-        Pending
-    </a>
-    </body>
+    <div class="col-3" style="float: right; text-align: center; position: fixed; right: 0px; height: 100%; background-color: #00e9ff;  display: block;">
+        <img class="shadow-sm" src="images/Profile.png" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
+        <h3 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">John Doe</h3>
+        <h5 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">This is a short bio This is a short bio This is
+            a short bio v</h5>
+        <h7 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Favorite Food: YeetSauce</h7>
+        <br><br>
+        <a onclick="toggleDisplay('owned')" style=" height:13%; background-image:     linear-gradient(
+          rgba(0, 233, 255, 0.45),
+          rgba(2, 166, 255, 0.45)
+        ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+            My Events
+        </a>
+        <a onclick="toggleDisplay('attending')" style=" height:13%; background-image:     linear-gradient(
+          rgba(0, 233, 255, 0.45),
+          rgba(2, 166, 255, 0.45)
+        ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+            Accepted
+        </a>
+        <a onclick="toggleDisplay('applied')" style=" height:13%; background-image:     linear-gradient(
+          rgba(0, 233, 255, 0.45),
+          rgba(2, 166, 255, 0.45)
+        ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+            Pending
+        </a>
+        </body>
 
-</div>
+    </div>
 <script>
 function toggleDisplay(id) {
     var div = document.getElementById(id);
