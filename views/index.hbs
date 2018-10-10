@@ -24,47 +24,97 @@
 
 <div class="col-9" style="background-color: #e8e8e8; height: 100%; float: left; padding-right: 0px; padding-left: 0px;">
 <button id="addevent" onclick=goToCreate() style="width:55px;border-radius:50%;color:white;background-color:#00e9ff;font-size:30px;font-weight:600;text-align:center;display:inline-block;margin: 4px 2px;padding:2px;cursor:pointer">+</button>
-    {{#each ownedEvents}}
-        <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px;">
-            <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
-                <img class="card-img-top" src="{{this.image}}" alt="Card image cap" style="width: 100%; height: 100%;">
+    <div id="owned" style="display: none">
+        {{#each eventsOwned}}
+            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: red;">
+                <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
+                    <img class="card-img-top" src="{{this.image}}" alt="Card image cap" style="width: 100%; height: 100%;">
+                </div>
+                <div class="col-10" >
+                    <div class="card-body" style="padding: 0px;">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.description}}</p>
+                    </div>
+                </div>
+                <div class="col-3" style="position: absolute; top: 70px; right: -85px">
+                    <a href="#" class="btn btn-damage">Close Event</a>
+                    <a href="#" class="btn btn-primary">{{this.date}}</a>
+                    <a href="#" class="btn btn-primary">{{this.attending.length}} / {{this.maxAttendance}}</a>
+                </div>
+                <!--  users that have requested-->
+
             </div>
-            <div class="col-10" >
-                <div class="card-body" style="padding: 0px;">
-                    <h5 class="card-title">{{this.name}}</h5>
-                    <p class="card-text">{{this.description}}</p>
+        {{/each}}
+    </div>
+
+    <div id="applied">
+        {{#each eventsApplied}}
+            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: yellow;">
+                <div class="row">
+                <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
+                    <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
+                </div>
+                <div class="col-6" >
+                    <div class="card-body" style="padding: 0px; float: left">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.description}}</p>
+                    </div>
+                </div>
+                <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
+                    <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
+                    <a href="#" class="btn btn-primary">{{this.date}}</a>
+                    <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
                 </div>
             </div>
-            <div class="col-3" style="position: absolute; top: 70px; right: -85px">
-                <a href="#" class="btn btn-delete">Close Event</a>
-                <a href="#" class="btn btn-primary">{{this.date}}</a>
-                <a href="#" class="btn btn-primary">{{this.attending.length}} / {{this.maxAttendance}}</a>
             </div>
-            <!--  users that have requested-->
+        {{/each}}
+    </div>
 
-        </div>
-    {{/each}}
-
-    {{#each allEvents}}
-        <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px;">
-            <div class="row">
-            <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
-                <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
-            </div>
-            <div class="col-6" >
-                <div class="card-body" style="padding: 0px; float: left">
-                    <h5 class="card-title">{{this.name}}</h5>
-                    <p class="card-text">{{this.description}}</p>
+    <div id="attending">
+        {{#each eventsAttending}}
+            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px; background-color: green;">
+                <div class="row">
+                <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
+                    <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
+                </div>
+                <div class="col-6" >
+                    <div class="card-body" style="padding: 0px; float: left">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.description}}</p>
+                    </div>
+                </div>
+                <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
+                    <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
+                    <a href="#" class="btn btn-primary">{{this.date}}</a>
+                    <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
                 </div>
             </div>
-            <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
-                <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
-                <a href="#" class="btn btn-primary">{{this.date}}</a>
-                <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
             </div>
-        </div>
-        </div>
-    {{/each}}
+        {{/each}}
+    </div>
+
+    <div id="all">
+        {{#each allEvents}}
+            <div class="card shadow" style="width: 100%; margin-top: 10px; display: inline-block; margin-bottom: 10px;">
+                <div class="row">
+                <div class="col-3" style="float: left; padding-left: 0px; padding-right: 0px">
+                    <img class="card-img-top" src={{this.image}} alt="Card image cap" style="width: 100%; height: 100%;">
+                </div>
+                <div class="col-6" >
+                    <div class="card-body" style="padding: 0px; float: left">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">{{this.description}}</p>
+                    </div>
+                </div>
+                <div id="{{this._id}}" class="findThis col-3" style="position: relative; float: right">
+                    <a id="requestToAttend" onclick="requestToJoin(this)" class="btn btn-primary">Request to Attend</a>
+                    <a href="#" class="btn btn-primary">{{this.date}}</a>
+                    <a href="#" class="btn btn-primary">{{this.currentAttendance}} / {{this.maxAttendance}}</a>
+                </div>
+            </div>
+            </div>
+        {{/each}}
+    </div>
 </div>
 
 <div class="col-3" style="float: right; text-align: center; position: fixed; right: 0px; height: 100%; background-color: #00e9ff;  display: block;">
@@ -74,28 +124,38 @@
         a short bio v</h5>
     <h7 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Favorite Food: YeetSauce</h7>
     <br><br>
-    <div style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45), 
+    <a onclick="toggleDisplay('owned')" style=" height:13%; background-image:     linear-gradient(
+      rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
     ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         My Events
-    </div>
-    <div style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45), 
+    </a>
+    <a onclick="toggleDisplay('applied')" style=" height:13%; background-image:     linear-gradient(
+      rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
     ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         Accepted
-    </div>
-    <div style=" height:13%; background-image:     linear-gradient(
-      rgba(0, 233, 255, 0.45), 
+    </a>
+    <a onclick="toggleDisplay('attending')" style=" height:13%; background-image:     linear-gradient(
+      rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
     ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         Pending
-    </div>
+    </a>
     </body>
 
 </div>
-<script> 
+<script>
+function toggleDisplay(id) {
+    var div = document.getElementById(id);
+    console
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+
 function goToCreate() {
 	window.location.href = 'createevent', true;
 }

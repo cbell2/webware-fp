@@ -10,40 +10,27 @@ mongSetup.Promise = global.Promise;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-    //THIS IS HOW WE FIND OUT IF SOMEONE IS LOGGED IN
-    //FIND USERS BY ID
-    //*****####console.log(req.session.userId);####****
-
     user.findOne({
-        email: req.session.email,
-        password: req.session.password
+        _id: req.session.userId
     }).populate({
         path: 'eventsOwned',
         model: 'events'
+    }).populate({
+        path: 'eventsApplied',
+        model: 'events'
+    }).populate({
+        path: 'eventsAttending',
+        model: 'events'
     }).then((someUser) => {
-        console.log(someUser);
-        // Get all of user's owned events
-        // var hasOwned = true;
-        // if (eventsOwned.length == 0) {
-        //     hasOwned = false;
-        // }
-
-        // Get all of user's applied events
-
-        // Get all of user's attending events TODO before time expired?
-
-        // Get and display all available events
         events.find().then((allEvents) => {
-            console.log(JSON.stringify(allEvents));
+            console.log(someUser.eventsOwned);
+            console.log(someUser.eventsApplied);
+            console.log(someUser.eventsAttending);
             res.render('index.hbs', {
                 title: "Welcome to Yeat",
-                // hasOwned: hasOwned,
-                // ownedEvents: ownedEvents,
-                // hasApplied: hasApplied,
-                // appliedEvents: appliedEvents,
-                // hasAttending: hasAtending,
-                // attendingEvents: attendingEvents,
+                eventsOwned: someUser.eventsOwned,
+                eventsApplied: someUser.eventsApplied,
+                eventsAttending: someUser.eventsAttending,
                 allEvents: allEvents,
                 username: req.session.email,
             });
@@ -77,6 +64,5 @@ router.post('/requestEvent', function(req, res, next) {
             res.end();
     });
 });
-
 
 module.exports = router;
