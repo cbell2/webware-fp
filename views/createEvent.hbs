@@ -7,7 +7,7 @@
       {{message}}
       <br>
 
-    	<form action="/createEvent/" method="post" id="form1">
+    	<form action="/createEvent/" method="post" enctype="multipart/form-data" id="form1">
     	<p>
 	    	<label for="name">
 	    		<span style="font-size: 120%">Name of Event: </span>
@@ -55,6 +55,16 @@
             <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
         </div>
 	    </p>
+
+            <p>
+                <label for="loc">
+                    <span style="font-size: 120%">Image: </span>
+                </label><br>
+            <div class="popup wrap">
+                <input type = "file" name="photo" id="photo" accept="image/*">
+                <span class="popuptext" id="myPopup">Please complete this field before submitting</span>
+            </div>
+            </p>
 
 	    <input type="submit" id="createnewevent" role="button" value="Create" style="font-size:32px; width: 30%; border:none;background-color: lightblue; font-weight:600; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
 		<a href="/main" type="button" id="cancelevent" role="button" style="font-size:32px; width: 30%; border-radius:40%;border-color:white; background-color: lightblue; font-weight:600; color:#9932CC;text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">Cancel</a>
