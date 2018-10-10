@@ -53,6 +53,11 @@
                         <a id="{{this._id}}" href="#" onclick="declineRequest(this)" class="btn btn-danger">Decline</a>
                     </li>
                 {{/each}}
+                {{#each this.attending}}
+                    <li class="list-group-item">
+                        {{this.name}} is attending your event.
+                    </li>
+                {{/each}}
             </ul>
         {{/each}}
     </div>
