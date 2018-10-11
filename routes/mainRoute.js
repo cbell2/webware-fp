@@ -3,7 +3,8 @@ var router = express.Router();
 var mongSetup = require('../mongooseSetup');
 var events = require("mongoose").model('events');
 var user = require("mongoose").model('user');
-
+var helpers = require('handlebars-helpers');
+var object = helpers.object();
 
 var mongoDB = mongSetup.db;
 mongSetup.Promise = global.Promise;

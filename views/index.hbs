@@ -48,7 +48,7 @@
             <ul id="{{this._id}}" class="list-group eventId" style"margin-top: 10px">
                 {{#each this.requested}}
                     <li class="list-group-item">
-                        {{this.name}} Would like to attend!
+                        <p style="font-weight:600; cursor:pointer" onclick="showModal({{JSONstringify this}})"> {{this.name}}</p> would like to attend!
                         <a id="{{this._id}}" href="#" onclick="acceptRequest(this)" class="btn btn-success">Accept</a>
                         <a id="{{this._id}}" href="#" onclick="declineRequest(this)" class="btn btn-danger">Decline</a>
                     </li>
@@ -162,23 +162,80 @@
     <a onclick="toggleDisplay('owned')" style=" height:13%; background-image:     linear-gradient(
       rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; cursor:pointer; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         My Events
     </a>
     <a onclick="toggleDisplay('attending')" style=" height:13%; background-image:     linear-gradient(
       rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; cursor:pointer; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         Accepted
     </a>
     <a onclick="toggleDisplay('applied')" style=" height:13%; background-image:     linear-gradient(
       rgba(0, 233, 255, 0.45),
       rgba(2, 166, 255, 0.45)
-    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+    ), url(images/FishPic.jpg); background-size: cover; margin-bottom:5px; border-radius: 10px; cursor:pointer; color:white; font-size: 50px; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
         Pending
     </a>
 </div>
+
+<div id="modaling" class="modal">
+    <form class="modal-content animate">
+      <div style="font-style:italic" class="container">
+
+      	<p id="modal-name"> </p>
+      	<p id="modal-email"> </p>
+      	<p id="modal-bio"> </p>
+      	<p id="modal-fave"> </p>
+        
+       
+
+      </div>
+
+    </form>
+  </div>
+
+
 </body>
+
+<style>
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 50;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+.modal-content {
+  border-radius: 1em;
+  background-color: lightblue;
+  margin: 5px auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+</style>
 <script>
 
     $(document).ready(function() {
@@ -281,6 +338,31 @@ function requestToJoin(e) {
         }
     });
 }
+function showModal(user) {
+	//Populate the fields inside the modal
+	document.getElementById('modal-name').innerHTML = "Username: "+user.name;
+	document.getElementById('modal-email').innerHTML = "Email: "+ user.email;
+	if (user.bio == null) {
+		document.getElementById('modal-bio').innerHTML = "This user does not have any bio";
+	}
+	else document.getElementById('modal-bio').innerHTML = "About: "+ user.bio;
+	if (user.fave == null) {
+		document.getElementById('modal-fave').innerHTML = "This user doesn't have any favorite food"
+	}
+	else document.getElementById('modal-fave').innerHTML = "Favorite food: "+ user.fave;			
+	var modal = document.getElementById('modaling')
+	modal.style.display='block'
+    //var userId = button.id;
+    //var eventId = $(button).closest(".eventId").attr('id');
+
+    //var modal = document.getElementById('modaling');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+}
 
 function acceptRequest(button) {
     var userId = button.id;
@@ -302,6 +384,7 @@ function acceptRequest(button) {
         }
     });
 }
+
 
 function declineRequest(button) {
     var userId = button.id;
