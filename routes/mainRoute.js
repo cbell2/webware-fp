@@ -38,7 +38,9 @@ router.get('/', function(req, res, next) {
                 eventsApplied: someUser.eventsApplied,
                 eventsAttending: someUser.eventsAttending,
                 allEvents: allEvents,
-                username: req.session.email,
+                username: someUser.email,
+                bio: someUser.bio,
+                fave: someUser.fave
             });
         }, (err) => {
             console.log('Error getting events from database.');
@@ -48,7 +50,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/requestEvent', function(req, res, next) {
-
     user.findOne({
             _id: req.session.userId
         }).populate({
@@ -141,6 +142,22 @@ router.delete('/declineRequest', function(req, res, next) {
             someUser.save();
         });
         res.end();
+    });
+});
+
+
+router.post('/changeBioFave', function(req, res, next){
+    console.log('Changing a user\'s bio or fave');
+    user.findOne({
+        _id: req.session.userId
+    }).then((someUser) => {
+        if(req.body.bio)
+            someUser.bio = req.body.bio;
+        else
+            someUser.fave = req.body.fave;
+        someUser.save().then(()=>{
+            res.end()
+        })
     });
 });
 

@@ -1,6 +1,6 @@
 body {
-  width: 100vh;
-  height: 90vh;
+  /* width: 100vh;
+  height: 90vh; */
   /* color: #fff; */
   /* background: linear-gradient(-45deg, #B67FDD, #A786DD, #7EB7FA, #63CEFC); */
   background: linear-gradient(-45deg, #02a6ff, #02a6ff, #00e9ff, #00e9ff);
@@ -119,9 +119,20 @@ body {
   50%  { opacity:0; }
   100% { opacity:1; }
 }
-@-moz-keyframes fadeIn{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
+.sideBarText{
+  color:white;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+
 
