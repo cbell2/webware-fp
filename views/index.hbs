@@ -60,7 +60,7 @@
                 {{/each}}
                 {{#each this.attending}}
                     <li class="list-group-item">
-                        {{this.name}} is attending your event.
+                        <p style="font-weight:600; cursor:pointer" onclick="showModal({{JSONstringify this}})"> {{this.name}}</p> is attending your event.
                     </li>
                 {{/each}}
             </ul>
