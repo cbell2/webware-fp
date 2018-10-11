@@ -27,19 +27,14 @@ router.get('/', function(req, res, next) {
         path: 'eventsAttending',
         model: 'events'
     }).then((someUser) => {
-        // console.log('Populated Event:');
-        // console.log(someUser.eventsOwned);
-        //console.log(someUser.eventsApplied);
-        //console.log(someUser.eventsAttending);
         events.find().then((allEvents) => {
-
             res.render('index.hbs', {
                 title: "Welcome to Yeat",
                 eventsOwned: someUser.eventsOwned,
                 eventsApplied: someUser.eventsApplied,
                 eventsAttending: someUser.eventsAttending,
                 allEvents: allEvents,
-                username: someUser.email,
+                username: someUser.name,
                 bio: someUser.bio,
                 fave: someUser.fave
             });
@@ -146,6 +141,16 @@ router.delete('/declineRequest', function(req, res, next) {
     });
 });
 
+router.delete('/closeEvent', function(req, res, next) {
+    events.findOne({
+        _id: req.body.eventId
+    }).then((someEvent)=>{
+        // Change active to 0
+        someEvent.active = 0;
+        someEvent.save();
+    });
+    res.end();
+});
 
 router.post('/changeBioFave', function(req, res, next){
     console.log('Changing a user\'s bio or fave');

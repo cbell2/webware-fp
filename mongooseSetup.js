@@ -10,6 +10,9 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 var events = mongoose.model("events", {
+    active: {
+        type: Number,
+    },
     name: {
         type: String,
         required: true
@@ -87,6 +90,9 @@ userSchema.statics.authenticate = function (email, password, callback) {
 //hashing a password before saving it to the database
 userSchema.pre('save', function (next) {
     var user = this;
+
+    if (!user.isModified('password')) return next();
+
     bcrypt.hash(user.password, 10, function (err, hash) {
         if (err) {
             return next(err);
