@@ -214,8 +214,9 @@
 
 <div id="modaling" class="modal">
     <form class="modal-content animate">
-      <div style="font-style:italic" class="container">
-
+    	<div id="image-in-modal"></div>
+      <div id="modalling" style="font-style:italic" class="container">
+        <p id="modal-image"> </p>
       	<p id="modal-name"> </p>
       	<p id="modal-email"> </p>
       	<p id="modal-bio"> </p>
@@ -393,6 +394,17 @@ function requestToJoin(e) {
 }
 function showModal(user) {
 	//Populate the fields inside the modal
+	//document.getElementById('modal-image').innerHTML = user.image;
+	var img = document.createElement("img");
+    var img_src = user.photo
+    if (img_src == null) {img_src = "../images/Profile.png"}
+    img.src = img_src.substring(2);
+    img.width = 160
+    img.height = 160
+    var image = document.getElementById('modal-image');
+    image.innerHTML = '<img src="'+img.src+'" width=150px height=160px/>';
+
+    //document.getElementById('modalling').appendChild(img);
 	document.getElementById('modal-name').innerHTML = "Username: "+user.name;
 	document.getElementById('modal-email').innerHTML = "Email: "+ user.email;
 	if (user.bio == null) {
