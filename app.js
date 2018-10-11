@@ -62,7 +62,7 @@ app.get('/logout', function(req, res) {
 app.use('/', loginRoute);
 app.use('/loginForm', loginFormRoute);
 app.use('/main', mainRoute);
-app.use('/createevent', createEventRoute);
+app.use('/createEvent', createEventRoute);
 
 
 app.listen(process.env.PORT || 8000, ()=>{

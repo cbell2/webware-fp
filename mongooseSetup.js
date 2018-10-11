@@ -24,6 +24,10 @@ var events = mongoose.model("events", {
     description: {
         type: String
     },
+    location: {
+    	type: String,
+    	required: true
+    },
     image: {
         type: String
     },

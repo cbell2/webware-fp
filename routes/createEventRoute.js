@@ -43,7 +43,8 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
             message: "SUCCESS"
         });
         console.log('got everything');
-
+        console.log('desc: ' + req.body.desc);
+        console.log('location: ' + req.body.location);
         //TODO create an event
         user.findOne({
             _id: req.session.userId,
@@ -65,6 +66,7 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
                 name: req.body.bookname,
                 date: req.body.time,
                 description: req.body.desc,
+                location: req.body.location,
                 maxAttendance: req.body.capacity,
                 image: photoName
             });
