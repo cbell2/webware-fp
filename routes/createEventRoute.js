@@ -38,8 +38,6 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
         req.body.desc &&
         req.body.location &&
         req.body.capacity){
-        res.redirect('/main');
-
 
         //TODO create an event
         user.findOne({
@@ -72,7 +70,8 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
                 someUser.save().then((doc)=>{
                    console.log(doc);
                 });
-                res.redirect('/index.hbs');
+                res.redirect('/main');
+                ;
             });
         })
     }
