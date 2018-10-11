@@ -127,27 +127,11 @@
 <div id="cardsHere" class="col-9"
      style="margin-top: 7%; height: 100%; float: left; padding-right: 0px; padding-left: 0px;">
 
-    <div class="card shadow"
-         style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3); ;margin-bottom: -10px; font-size: 30px; color:white; background-color: red; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
-        My Events
-    </div>
-
-    <div class="card shadow"
-         style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);; margin-bottom: -10px; font-size: 30px; color:white; background-color: #32cd32; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
-        Applied Events
-    </div>
-
-    <div class="card shadow"
-         style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);; margin-bottom: -10px; font-size: 30px; color:white; background-color: #f9c74a; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
-        Pending Events
-    </div>
-
-    <div class="card shadow"
-         style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);; margin-bottom: -10px; font-size: 30px; color:white; background-color: #02a6ff; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
-        All Events
-    </div>
-
-    <div id="owned" style="display: none">
+    <div id="owned">
+        <div class="card shadow"
+             style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3); font-size: 30px; color:white; background-color: red; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
+            My Events
+        </div>
         {{#each eventsOwned}}
             {{#if this.active}}
                 <div class="eventCard card shadow"
@@ -201,7 +185,11 @@
         {{/each}}
     </div>
 
-    <div id="attending" style="display: none">
+    <div id="attending">
+        <div class="card shadow"
+             style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);font-size: 30px; color:white; background-color: #32cd32; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
+            Applied Events
+        </div>
         {{#each eventsAttending}}
             {{#if this.active}}
                 <div class="eventCard card shadow"
@@ -236,7 +224,11 @@
         {{/each}}
     </div>
 
-    <div id="applied" style="display: none">
+    <div id="applied">
+        <div class="card shadow"
+             style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3); font-size: 30px; color:white; background-color: #f9c74a; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
+            Pending Events
+        </div>
         {{#each eventsApplied}}
             {{#if this.active}}
                 <div class="eventCard card shadow"
@@ -271,6 +263,10 @@
     </div>
 
     <div id="all">
+        <div class="card shadow"
+             style="text-shadow: 2px 4px 3px rgba(0,0,0,0.3);; font-size: 30px; color:white; background-color: #02a6ff; text-align:center; width: 100%; margin-top: 10px; display: inline-block;">
+            All Events
+        </div>
         {{#each allEvents}}
             {{#if this.active}}
                 {{#compare this.owner "!=" @root.userId}}
