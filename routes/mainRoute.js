@@ -85,6 +85,14 @@ router.post('/acceptRequest', function(req, res, next) {
             path: 'attending',
             model: 'user'
         }).then((someEvent)=>{
+            // Check if the event still has enough capacity
+            if (someEvent.attending.length >= someEvent.maxAttendance) {
+                console.log("THIS SHOULD SEND BACK AN ERROR");
+
+                return res.end({ hello: 'world' });
+                // return res.end("Updated Successfully");
+            }
+
             // Remove from requested, add to attending
             someEvent.attending.push(someUser);
             for (var i = 0; i < someEvent.requested.length; i++) {
@@ -102,8 +110,8 @@ router.post('/acceptRequest', function(req, res, next) {
                 }
             }
             someUser.save();
+            res.end();
         });
-        res.end();
     });
 });
 
