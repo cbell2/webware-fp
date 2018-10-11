@@ -383,7 +383,6 @@ function requestToJoin(e) {
             location.reload();
         },
         error: function () {
-
             alert("Requesting to join event failed");
         }
     });
@@ -430,7 +429,7 @@ function acceptRequest(button) {
             location.reload();
         },
         error: function () {
-            alert("Accepting user failed");
+            alert("Max Acceptance has been reached, cannot accept User.");
         }
     });
 }
