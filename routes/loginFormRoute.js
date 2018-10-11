@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
         res.redirect('/main')
     }else{
     res.render('loginForm.hbs', {
+        title: 'Log in!',
         title: "Welcome to Yeat",
     });
     }
@@ -42,7 +43,10 @@ router.post('/', function (req, res, next) {
 
         User.create(userData, function (error, user) {
             if (error) {
-                return next(error);
+                res.render('loginForm.hbs', {
+                    title: 'Log in!',
+                    duplicate: true
+                })
             } else {
                 req.session.userId = user._id;
                 return res.redirect('/main');
@@ -53,6 +57,7 @@ router.post('/', function (req, res, next) {
         User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
             if (error || !user) {
                 res.render('loginForm.hbs', {
+                    title: 'Log in!',
                     error: true
                 })
             } else {
