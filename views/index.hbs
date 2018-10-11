@@ -381,7 +381,7 @@
 
     <div id="snackbar" style="background-color:#02a6ff">Update Successful</div>
     <div id="snackbar2" style="background-color:#ff020f">Update Failed</div>
-
+</div>
 </body>
 
 <style>
@@ -543,6 +543,43 @@
         } else {
             div.style.display = "none";
         }
+    }
+
+    function showModal(user) {
+        //Populate the fields inside the modal
+        //document.getElementById('modal-image').innerHTML = user.image;
+        var img = document.createElement("img");
+        var img_src = user.photo
+        if (img_src == null) {img_src = "../images/Profile.png"}
+        img.src = img_src.substring(2);
+        img.width = 160
+        img.height = 160
+        var image = document.getElementById('modal-image');
+        image.innerHTML = '<img src="'+img.src+'" width=150px height=160px/>';
+
+        //document.getElementById('modalling').appendChild(img);
+        document.getElementById('modal-name').innerHTML = "Username: "+user.name;
+        document.getElementById('modal-email').innerHTML = "Email: "+ user.email;
+        if (user.bio == null) {
+            document.getElementById('modal-bio').innerHTML = "This user does not have any bio";
+        }
+        else document.getElementById('modal-bio').innerHTML = "About: "+ user.bio;
+        if (user.fave == null) {
+            document.getElementById('modal-fave').innerHTML = "This user doesn't have any favorite food"
+        }
+        else document.getElementById('modal-fave').innerHTML = "Favorite food: "+ user.fave;
+        var modal = document.getElementById('modaling')
+        modal.style.display='block'
+        //var userId = button.id;
+        //var eventId = $(button).closest(".eventId").attr('id');
+
+        //var modal = document.getElementById('modaling');
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
     }
 
     function goToCreate() {
