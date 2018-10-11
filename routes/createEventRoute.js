@@ -38,12 +38,9 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
         req.body.desc &&
         req.body.location &&
         req.body.capacity){
-        res.render('createEvent.hbs', {
-            title: "Create Event",
-            message: "SUCCESS"
-        });
-        console.log('got everything');
-   
+        res.redirect('/main');
+
+
         //TODO create an event
         user.findOne({
             _id: req.session.userId,
@@ -75,6 +72,7 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
                 someUser.save().then((doc)=>{
                    console.log(doc);
                 });
+                res.redirect('/index.hbs');
             });
         })
     }
