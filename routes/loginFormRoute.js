@@ -30,8 +30,6 @@ router.post('/', function (req, res, next) {
         res.send("passwords dont match");
         return next(err);
     }
-    console.log(req.body.email + " " +req.body.name+ " " +req.body.password+ " ")
-    //todo have the fornt end compare password to password conf
     if (req.body.email &&
         req.body.name &&
         req.body.password) {
@@ -40,7 +38,7 @@ router.post('/', function (req, res, next) {
             email: req.body.email,
             name: req.body.name,
             password: req.body.password
-        }
+        };
 
         User.create(userData, function (error, user) {
             if (error) {
@@ -52,12 +50,11 @@ router.post('/', function (req, res, next) {
         });
 
     } else if (req.body.logemail && req.body.logpassword) {
-        console.log(req.body.logemail + " " + req.body.logpassword);
         User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
             if (error || !user) {
-                var err = new Error('Wrong email or password.');
-                err.status = 401;
-                return next(err);
+                res.render('loginForm.hbs', {
+                    error: true
+                })
             } else {
                 req.session.userId = user._id;
                 return res.redirect('/main');
