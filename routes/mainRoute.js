@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
                 eventsApplied: someUser.eventsApplied,
                 eventsAttending: someUser.eventsAttending,
                 allEvents: allEvents,
-                username: someUser.email,
+                username: someUser.name,
                 bio: someUser.bio,
                 fave: someUser.fave
             });

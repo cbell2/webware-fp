@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-            </div
+            </div>
 
             <ul id="{{this._id}}" class="list-group eventId" style"margin-top: 10px">
                 {{#each this.requested}}
@@ -195,7 +195,8 @@
         var inputBio = $('<input />', {
             'type': 'text',
             'placeholder': originalBio.text(),
-            'id': 'inputBio'
+            'id': 'inputBio',
+            'style': 'width: 300px'
         });
         var inputFave = $('<input />', {
             'type': 'text',
@@ -205,12 +206,10 @@
 
         $('#bioDiv').on('click', '#bio', function () {
             $('#bio').replaceWith(inputBio);
-            //$('#inputBio').replaceWith(originalElement);
+            $('#bioDiv').find('#inputBio').focus();
             $('#bioDiv').find('#inputBio').on('focusout', function () {
-                //var isChanged = false;
                 if($('#inputBio').val()){
                     originalBio.text($('#inputBio').val());
-                    //isChanged = true;
                     $.ajax({
                         url: '/main/changeBioFave',
                         type: 'post',
@@ -225,6 +224,8 @@
                         }
                     }).then($('#inputBio').replaceWith(originalBio));
 
+                }else{
+                    $('#inputBio').replaceWith(originalBio)
                 }
             })
         });
@@ -233,6 +234,7 @@
         $('#faveDiv').on('click', '#fave', function () {
             $('#fave').replaceWith(inputFave);
             //$('#inputBio').replaceWith(originalElement);
+            $('#faveDiv').find('#inputFave').focus();
             $('#faveDiv').find('#inputFave').on('focusout', function () {
                 //var isChanged = false;
                 if($('#inputFave').val()){
@@ -253,6 +255,8 @@
                     }).then($('#inputFave').replaceWith(originalFave));
 
                 }
+                else
+                    $('#inputFave').replaceWith(originalFave);
             })
         });
     });
