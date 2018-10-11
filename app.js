@@ -18,9 +18,14 @@ var app = express();
 
 app.engine( 'hbs', hbs( {
     helpers: {
-        // getUsername: function(){
-        //     return someUsername;
-        // }
+        contains2: function(arr, str, opts) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].toString() == str) {
+                    return opts.inverse(this);
+                }
+            }
+            return opts.fn(this);
+        }
 
     },
     extname: 'hbs',

@@ -5,6 +5,7 @@ var events = require("mongoose").model('events');
 var user = require("mongoose").model('user');
 var helpers = require('handlebars-helpers');
 var object = helpers.object();
+var compare = helpers.comparison();
 var multer = require('multer');
 
 
@@ -49,6 +50,7 @@ router.get('/', function(req, res, next) {
                 eventsApplied: someUser.eventsApplied,
                 eventsAttending: someUser.eventsAttending,
                 allEvents: allEvents,
+                userId: someUser._id,
                 username: someUser.name,
                 bio: someUser.bio,
                 fave: someUser.fave,
