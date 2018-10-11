@@ -35,6 +35,9 @@ var events = mongoose.model("events", {
         type: Number,
         required: true
     },
+    owner: {
+        type: String
+    },
     requested: [{ type: Schema.Types.ObjectId, ref: user}],
 
     attending: [{ type: Schema.Types.ObjectId, ref: user}]

@@ -64,6 +64,7 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
                 active: 1,
                 name: req.body.bookname,
                 date: req.body.time,
+                owner: req.session.userId,
                 description: req.body.desc,
                 location: req.body.location,
                 maxAttendance: req.body.capacity,
