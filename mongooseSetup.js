@@ -18,7 +18,7 @@ var events = mongoose.model("events", {
         required: true
     },
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     description: {
