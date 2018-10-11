@@ -10,6 +10,9 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 var events = mongoose.model("events", {
+    active: {
+        type: Number,
+    },
     name: {
         type: String,
         required: true

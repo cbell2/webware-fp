@@ -61,6 +61,7 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
             console.log("the photo name is " + photoName);
 
             var newEvent = new events({
+                active: 1,
                 name: req.body.bookname,
                 date: req.body.time,
                 description: req.body.desc,
