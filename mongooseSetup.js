@@ -57,6 +57,9 @@ var userSchema = new mongoose.Schema({
     fave: {
         type: String
     },
+    photo: {
+        type: String
+    },
 
     eventsOwned: [{ type: Schema.Types.ObjectId, ref: events}],
 

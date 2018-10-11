@@ -74,16 +74,7 @@ router.post('/', multer(multerConfig).single('photo'), function(req, res, next){
                    console.log(doc);
                 });
             });
-
         })
-        //     var eventsOwned = someUser.eventsOwned;
-        //     console.log(JSON.stringify(someUser));
-        //     console.log("here are my evenets: " + eventsOwned);
-        //
-        //     }), (err) => {
-        //         console.log('Could not get user from the server');
-        //         throw err;
-        // };
     }
     else{
         res.render('createEvent.hbs', {
