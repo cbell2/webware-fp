@@ -158,7 +158,20 @@
 </div>
 
 <div class="col-3" style="float: right; text-align: center; position: fixed; right: 0px; height: 100%; background-color: #00e9ff;  display: block;">
-    <img class="shadow-sm" src="images/Profile.png" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
+
+    {{#if image}}
+        <img id="userPhoto" class="shadow-sm" src="{{image}}" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
+
+    {{else}}
+        <img id="userPhoto" class="shadow-sm" src="images/Profile.png" style="width:60%; margin-left:5%; border-radius: 60%; margin-top: 5%">
+
+    {{/if}}
+        <form style="display: none" action="/main/profilePic/" method="post" enctype="multipart/form-data" id="photoForm">
+        <input id="avatar"  type = "file" name="photo"  accept="image/*" style="color:white">
+        <input id="submitPic" type="submit" role="button" value="Create" style="font-size:32px; width: 30%; border:none; font-weight:600; border-color:white; background-color: #0874ad; color: white; text-align:center; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">
+
+    </form>
+
     <h3 style="color:white; text-shadow: 2px 4px 3px rgba(0,0,0,0.3);">{{username}}</h3>
 <br><br>
         <div id="bioDiv">
@@ -258,6 +271,13 @@
 </style>
 <script>
 
+
+    $('#userPhoto').click(function(){
+        $('#avatar').click();
+        $(document).on('change', '#avatar', function () {
+            $('#submitPic').click();
+        })
+    });
 
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
@@ -367,7 +387,6 @@ function requestToJoin(e) {
             location.reload();
         },
         error: function () {
-
             alert("Requesting to join event failed");
         }
     });
@@ -414,7 +433,7 @@ function acceptRequest(button) {
             location.reload();
         },
         error: function () {
-            alert("Accepting user failed");
+            alert("Max Acceptance has been reached, cannot accept User.");
         }
     });
 }

@@ -5,6 +5,21 @@ var events = require("mongoose").model('events');
 var user = require("mongoose").model('user');
 var helpers = require('handlebars-helpers');
 var object = helpers.object();
+var multer = require('multer');
+
+
+const multerConfig = {
+    storage: multer.diskStorage({
+        destination: function(req, file, next){
+            next(null, './public/uploads')
+        },
+        filename: function(req, file, next){
+            console.log(file);
+            const ext = file.mimetype.split('/')[1];
+            next(null, file.fieldname + '-' + Date.now() + '.' + ext);
+        }
+    })
+};
 
 var mongoDB = mongSetup.db;
 mongSetup.Promise = global.Promise;
@@ -36,7 +51,8 @@ router.get('/', function(req, res, next) {
                 allEvents: allEvents,
                 username: someUser.name,
                 bio: someUser.bio,
-                fave: someUser.fave
+                fave: someUser.fave,
+                image: someUser.photo
             });
         }, (err) => {
             console.log('Error getting events from database.');
@@ -86,6 +102,14 @@ router.post('/acceptRequest', function(req, res, next) {
             path: 'attending',
             model: 'user'
         }).then((someEvent)=>{
+            // Check if the event still has enough capacity
+            if (someEvent.attending.length >= someEvent.maxAttendance) {
+                console.log("THIS SHOULD SEND BACK AN ERROR");
+
+                return res.end({ hello: 'world' });
+                // return res.end("Updated Successfully");
+            }
+
             // Remove from requested, add to attending
             someEvent.attending.push(someUser);
             for (var i = 0; i < someEvent.requested.length; i++) {
@@ -103,8 +127,8 @@ router.post('/acceptRequest', function(req, res, next) {
                 }
             }
             someUser.save();
+            res.end();
         });
-        res.end();
     });
 });
 
@@ -165,6 +189,35 @@ router.post('/changeBioFave', function(req, res, next){
             res.end()
         })
     });
+});
+
+router.post('/profilePic', multer(multerConfig).single('photo'), function(req, res, next){
+    user.findOne({
+        _id: req.session.userId
+    }).populate({
+        path: 'eventsOwned',
+        model: 'events',
+        populate: {
+            path: 'requested attending',
+            model: 'user'
+        }
+    }).populate({
+        path: 'eventsApplied',
+        model: 'events'
+    }).populate({
+        path: 'eventsAttending',
+        model: 'events'
+    }).then((someUser) => {
+        events.find().then((allEvents) => {
+            var photoName = "../uploads/" + req.file.filename;
+            someUser.photo = photoName;
+            someUser.save().then(
+                res.redirect('/main')
+            )
+
+        });
+    })
+
 });
 
 module.exports = router;
